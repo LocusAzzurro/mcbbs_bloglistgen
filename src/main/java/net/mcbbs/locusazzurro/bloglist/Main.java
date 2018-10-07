@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -90,9 +91,18 @@ public class Main {
 			originalTitle = nextRow.getCell(2).getStringCellValue();
 			translationLink = nextRow.getCell(3).getStringCellValue();
 			translationTitle = nextRow.getCell(4).getStringCellValue();
+			String author = "-";
+			if (nextRow.getCell(5).getCellTypeEnum().equals(CellType.NUMERIC))
+			{
+				author = Double.toString(nextRow.getCell(5).getNumericCellValue());
+			}
+			else 
+			{
+				author = nextRow.getCell(5).getStringCellValue();
+			}
 			
 			String tableLine = 
-					Components.BLOG_EL(postDate,originalLink,originalTitle,translationLink,translationTitle,parity);
+					Components.BLOG_EL(postDate,originalLink,originalTitle,translationLink,translationTitle,author,parity);
 			writer.write(tableLine);
 			writer.write("\r\n");
 		}
