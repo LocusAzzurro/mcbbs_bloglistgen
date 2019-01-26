@@ -36,6 +36,7 @@ public class Main {
 	
 	static final long UNIX_DIFF = 2208988800000L; //Time protocol RFC 868
 	static final long TIME_OFFSET = 86400000L * 2; //2 days in milliseconds
+	static final String[] TITLES = {"本周方块<已完结>","背包盘点","遇见生物","业界讯息","周边产品","社区文化"};
 	
 	public static void main(String[] args) throws IOException, URISyntaxException {
 		
@@ -43,8 +44,8 @@ public class Main {
 		Scanner input = new Scanner(System.in);
 		System.out.println("Insert file name.");
 		String fileName = input.nextLine();
-		System.out.println("Insert sheet number.");
-		int sheetNum = input.nextInt();
+		//System.out.println("Insert sheet number.");
+		//int sheetNum = input.nextInt();
 		input.close();
 		
 		//input and output path
@@ -58,26 +59,33 @@ public class Main {
 				BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile, true)))
 			{
 			
-				Sheet sheet = workbook.getSheetAt(sheetNum);
+				
 				System.out.println("Input File: " + excelFilePath);
+				
+				for (int i=0;i<6;i++)
+				{
+				Sheet sheet = workbook.getSheetAt(i);
+				System.out.println("------------------");
 				System.out.println("Table: " + sheet.getSheetName());
 			 	System.out.println("Rows: "+ sheet.getLastRowNum());
 			 	int lastRow = getLastValidRow(sheet);
 			 	System.out.println("Valid Rows: " + lastRow);
 			 	System.out.println("Commencing List Write...");
-			 	blogTableWriter(sheet, writer, lastRow);
+			 	blogTableWriter(sheet, writer, lastRow, TITLES[i]);
+				}
 			 	writer.flush();
 			 	System.out.println("Write Complete: \n" + outputFile);
+				
 			}
 	}
 
-	public static void blogTableWriter(Sheet sheet, BufferedWriter writer, int numRows) throws IOException {
+	public static void blogTableWriter(Sheet sheet, BufferedWriter writer, int numRows, String title) throws IOException {
 		boolean parity = true;
 		String postDate,originalLink,originalTitle,translationLink,translationTitle;
 		Iterator<Row> rowIterator = sheet.iterator();
 
 		writer.write(Components.BLOG_OP_1);
-		writer.write("<表名称>");
+		writer.write(title);
 		writer.write(Components.BLOG_OP_2);
 
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
