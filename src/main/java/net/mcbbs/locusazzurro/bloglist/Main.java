@@ -101,13 +101,9 @@ public class Main {
 			translationTitle = nextRow.getCell(4).getStringCellValue();
 			String author = "-";
 			if (nextRow.getCell(5).getCellTypeEnum().equals(CellType.NUMERIC))
-			{
-				author = Double.toString(nextRow.getCell(5).getNumericCellValue());
-			}
+				author = String.format("%.0f",nextRow.getCell(5).getNumericCellValue());
 			else 
-			{
 				author = nextRow.getCell(5).getStringCellValue();
-			}
 			
 			String tableLine = 
 					Components.BLOG_EL(postDate,originalLink,originalTitle,translationLink,translationTitle,author,parity);
