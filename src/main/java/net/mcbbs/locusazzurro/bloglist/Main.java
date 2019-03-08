@@ -36,47 +36,25 @@ public class Main {
 	
 	static final long UNIX_DIFF = 2208988800000L; //Time protocol RFC 868
 	static final long TIME_OFFSET = 86400000L * 2; //2 days in milliseconds
-	static final String[] TITLES = {"本周方块<已完结>","背包盘点","遇见生物","业界讯息","周边产品","社区文化"};
 	
 	public static void main(String[] args) throws IOException, URISyntaxException {
 		
-		//Input acquisition
-		Scanner input = new Scanner(System.in);
-		System.out.println("Insert file name.");
-		String fileName = input.nextLine();
-		//System.out.println("Insert sheet number.");
-		//int sheetNum = input.nextInt();
-		input.close();
+		String excelFilePath = FileUtilities.inputPath();
+		String outputFile = FileUtilities.outputPath();
 		
-		//input and output path
-		File jarLoc = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
-		String excelFilePath = jarLoc.getParent() + File.separator + fileName;
-		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd-HHmmss");
-		String outputFile = "output-" + df.format(new Date()) + ".txt";
+		ParsedWorkBook workbook = new ParsedWorkBook(excelFilePath,0);
+		BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile,true));
 		
-		try
-		(Workbook workbook = new XSSFWorkbook(excelFilePath);
-				BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile, true)))
-			{
-			
-				
-				System.out.println("Input File: " + excelFilePath);
-				
-				for (int i=0;i<6;i++)
-				{
-				Sheet sheet = workbook.getSheetAt(i);
-				System.out.println("------------------");
-				System.out.println("Table: " + sheet.getSheetName());
-			 	System.out.println("Rows: "+ sheet.getLastRowNum());
-			 	int lastRow = getLastValidRow(sheet);
-			 	System.out.println("Valid Rows: " + lastRow);
-			 	System.out.println("Commencing List Write...");
-			 	blogTableWriter(sheet, writer, lastRow, TITLES[i]);
-				}
-			 	writer.flush();
-			 	System.out.println("Write Complete: \n" + outputFile);
-				
-			}
+		for (int i=0;i<workbook.getNumSheets();i++)
+		{
+			Sheet sheet = workbook.getWorkBook().getSheetAt(i);
+			System.out.println("------------------");
+			System.out.println("Table: " + workbook.getNames()[i]);
+		 	System.out.println("Rows: "+ workbook.getRows()[i]);
+		 	blogTableWriter(sheet,writer,workbook.getRows()[i],workbook.getNames()[i]);
+		}
+		writer.flush();
+		writer.close();
 	}
 
 	public static void blogTableWriter(Sheet sheet, BufferedWriter writer, int numRows, String title) throws IOException {
@@ -111,18 +89,6 @@ public class Main {
 			writer.write("\r\n");
 		}
 		writer.write(Components.BLOG_ED);
-	}
-	public static int getLastValidRow(Sheet sheet)
-	{
-		int count = 0;
-		Iterator<Row> rowIterator = sheet.rowIterator();
-		while (rowIterator.hasNext())
-		{
-			Row nextRow = rowIterator.next();
-			Iterator<Cell> cellIterator = nextRow.cellIterator();
-			if(nextRow.getCell(0).getNumericCellValue() > 1) count++; //time stamp check
-		}
-		return count;
 	}
 		
 	//unused (for now)

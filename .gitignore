@@ -1,5 +1,6 @@
 target/
 *.xlsx
+*.txt
 .classpath
 .project
 .settings/
