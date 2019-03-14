@@ -1,5 +1,8 @@
 package net.mcbbs.locusazzurro.bloglist;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Components {
 
 public static final String BLOG_OP_1 =
@@ -35,6 +38,18 @@ public static String BUGLIST_EL(String bugNumber, String eng, String chn)
 			+ "[*][url=https://bugs.mojang.com/browse/MC-" + bugNumber
 			+ "]MC-" + bugNumber + "[/url] - " + chn + "\r\n";
 	return output;
+}
+
+public static Map<String, String> tableNames = new HashMap<String, String>();
+
+public static void initializeTableNames()
+{
+	tableNames.put("BLOCKS","本周方块");
+	tableNames.put("ITEMS","背包清点");
+	tableNames.put("MOBS","遇见生物");
+	tableNames.put("INSIDER","内部资讯");
+	tableNames.put("MERCH","周边产品");
+	tableNames.put("CULTURE","社区文化");
 }
 
 public static void main(String args[])
