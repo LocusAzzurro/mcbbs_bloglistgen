@@ -1,8 +1,10 @@
 package net.mcbbs.locusazzurro.bloglist;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Iterator;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -10,23 +12,30 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ParsedWorkBook {
 	
-	private XSSFWorkbook WorkBook = new XSSFWorkbook();
-	private int numSheets;
-	private int type;
-	private int[] rows;
-	private String[] names;
+	private final XSSFWorkbook workBook;
+	private final int numSheets;
+	private final int type;
+	private final int[] rows;
+	private final String[] names;
 	
-	public ParsedWorkBook(String filePath,int type) throws IOException
+	public ParsedWorkBook(Path filePath, int type) throws IOException
 	{
-		this.WorkBook = new XSSFWorkbook(filePath);
-		this.numSheets = WorkBook.getNumberOfSheets();
+		try
+		{
+			this.workBook = new XSSFWorkbook(filePath.toFile());
+		}
+		catch (InvalidFormatException e)
+		{
+			throw new IOException(e.toString(), e);
+		}
+		this.numSheets = workBook.getNumberOfSheets();
 		this.type = type;
 		this.rows = getLastValidRows();
 		this.names = getSheetNames();
 	}
 	public XSSFWorkbook getWorkBook()
 	{
-		return this.WorkBook;
+		return this.workBook;
 	}
 	public int getNumSheets()
 	{
@@ -50,7 +59,7 @@ public class ParsedWorkBook {
 		
 		for (int i=0; i<this.numSheets; i++) //iterate through sheets
 		{
-		Sheet sheet = this.WorkBook.getSheetAt(i);
+		Sheet sheet = this.workBook.getSheetAt(i);
 		rows[i] = 0;
 		Iterator<Row> rowIterator = sheet.rowIterator();
 		while (rowIterator.hasNext())
@@ -69,7 +78,7 @@ public class ParsedWorkBook {
 		
 		for (int i=0; i<this.numSheets; i++)
 		{
-		names[i] = this.WorkBook.getSheetName(i);
+		names[i] = this.workBook.getSheetName(i);
 		}
 		return names;
 	}

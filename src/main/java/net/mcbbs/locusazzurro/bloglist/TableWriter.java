@@ -1,8 +1,10 @@
 package net.mcbbs.locusazzurro.bloglist;
 
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -13,16 +15,16 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
 public class TableWriter {
-	private ParsedWorkBook workbook;
-	private BufferedWriter writer;
+	private final ParsedWorkBook workbook;
+	private final BufferedWriter writer;
 	
 	static final long UNIX_DIFF = 2208988800000L; //Time protocol RFC 868
 	static final long TIME_OFFSET = 86400000L * 2; //2 days in millisecs shift for xlsx date format
 	
-	public TableWriter(ParsedWorkBook workbook,String outputFilePath) throws IOException
+	public TableWriter(ParsedWorkBook workbook, Path outputFilePath) throws IOException
 	{
 		this.workbook = workbook;
-		this.writer = new BufferedWriter(new FileWriter(outputFilePath,true));
+		this.writer = Files.newBufferedWriter(outputFilePath, StandardOpenOption.APPEND);
 	}
 	
 	public void blogTableWrite() throws IOException
@@ -36,19 +38,22 @@ public class TableWriter {
 		{
 			Sheet sheet = workbook.getWorkBook().getSheetAt(i); //get num i sheet
 			Iterator<Row> rowIterator = sheet.iterator();
-			
+
+			String tableName = workbook.getNames()[i];
+			int rows = workbook.getRows()[i];
+
 			System.out.println("------------------"); //sheet info check
-			System.out.println("Table: " + workbook.getNames()[i]);
-		 	System.out.println("Rows: "+ workbook.getRows()[i]);
+			System.out.println("Table: " + tableName);
+			System.out.println("Rows: "+ rows);
 		 	
 		 	writer.write(Components.BLOG_OP_1);
-			if (Components.tableNames.containsKey(workbook.getNames()[i]))
-				writer.write(Components.tableNames.get(workbook.getNames()[i]));
-			else writer.write(workbook.getNames()[i]);
+			if (Components.tableNames.containsKey(tableName))
+				writer.write(Components.tableNames.get(tableName));
+			else writer.write(tableName);
 			writer.write(Components.BLOG_OP_2);
 			
 
-			for (int j=0 ; j<workbook.getRows()[i] ; j++) //iterate rows
+			for (int j = 0; j< rows; j++) //iterate rows
 			{
 				Row nextRow = rowIterator.next();
 				parity = !parity;
