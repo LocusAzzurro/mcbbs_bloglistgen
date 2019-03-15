@@ -24,6 +24,8 @@ public class TableWriter {
 	public TableWriter(ParsedWorkBook workbook, Path outputFilePath) throws IOException
 	{
 		this.workbook = workbook;
+		try	{Files.createFile(outputFilePath);}
+		catch (IOException e) {	e.printStackTrace();}
 		this.writer = Files.newBufferedWriter(outputFilePath, StandardOpenOption.APPEND);
 	}
 	
