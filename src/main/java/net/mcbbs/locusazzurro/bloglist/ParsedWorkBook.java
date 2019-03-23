@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -58,7 +59,7 @@ public class ParsedWorkBook {
 		int[] rows = new int[this.numSheets];
 		
 		for (int i=0; i<this.numSheets; i++) //iterate through sheets
-		{
+	{
 		Sheet sheet = this.workBook.getSheetAt(i);
 		rows[i] = 0;
 		Iterator<Row> rowIterator = sheet.rowIterator();
@@ -66,10 +67,31 @@ public class ParsedWorkBook {
 		{
 			Row nextRow = rowIterator.next();
 			Iterator<Cell> cellCheck = nextRow.cellIterator();
-			if(cellCheck.hasNext()) {
-				if(nextRow.getCell(0).getNumericCellValue() > 1) rows[i]++; } //time stamp check
+			if(cellCheck.hasNext()) 
+			{
+				//if(nextRow.getCell(0).getNumericCellValue() > 1) rows[i]++; } //time stamp check
+				
+				Cell cell = cellCheck.next();
+				CellType type = cell.getCellTypeEnum();
+				switch (type) 
+				{
+				case NUMERIC: //timestamp check
+					if(cell.getNumericCellValue() > 1)
+						rows[i]++;
+						break;
+				case STRING: //string content check
+					if(!cell.getStringCellValue().replaceAll("\\s+", "").equals(""))
+						rows[i]++;
+						break;
+				default: break;
+				}
+				
+			}
+				
 		}
-		}
+		
+		
+	}
 		return rows;
 	}
 	private String[] getSheetNames()

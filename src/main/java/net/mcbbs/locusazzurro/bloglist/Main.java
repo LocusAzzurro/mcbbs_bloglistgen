@@ -22,6 +22,7 @@ public class Main {
 
 		ParsedWorkBook workbook = new ParsedWorkBook(excelFilePath, 0);
 		TableWriter writer = new TableWriter(workbook, outputFile);
+		//writer.libraryTableWrite();
 		writer.blogTableWrite();
 	}
 }

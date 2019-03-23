@@ -40,6 +40,21 @@ public static String BUGLIST_EL(String bugNumber, String eng, String chn)
 	return output;
 }
 
+public static final String LIB_OP_1= "[table][tr=Gray][td=3,1,600][b][color=White]"; //add table name here
+public static final String LIB_OP_2= "[/color][/b][/td][/tr]"
+		+ "[tr=LightGray][td=350]文献[/td][td=270]贡献者[/td][td=30][/td][/tr]"; //TODO: rework table palette
+public static final String LIB_ED = "[/table]\r\n";
+public static final String LIB_EL(String title, String link, String author, String color, boolean parity)
+{
+	String parityColor;
+	if (parity) parityColor = "#ffffff";
+	else parityColor = "#ffffff"; //TODO: change this when colors are chosen
+	String output = "[tr=" + parityColor + "][td][url=" + link + "]" + title 
+			+ "[/url][/td][td]"	+ author + "[/td][td][table][tr=" + color 
+			+ "][td][/td][/tr][/table][/td][/tr]\n";
+	return output;
+}
+
 public static Map<String, String> tableNames = new HashMap<String, String>();
 
 public static void initializeTableNames()
@@ -50,6 +65,9 @@ public static void initializeTableNames()
 	tableNames.put("INSIDER","内部资讯");
 	tableNames.put("MERCH","周边产品");
 	tableNames.put("CULTURE","社区文化");
+	tableNames.put("PLUGINS","插件资料");
+	tableNames.put("MODS","模组资料");
+	tableNames.put("DOCS","学术文章");
 }
 
 public static void main(String args[])

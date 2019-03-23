@@ -82,6 +82,52 @@ public class TableWriter {
 		writer.close();
 		
 	}
+	public void libraryTableWrite() throws IOException
+	{
+		boolean parity = true;
+		String title,link;
+		String author = "N/A";
+		for (int i=0 ; i<workbook.getNumSheets() ; i++) //iterate sheets
+		{
+			Sheet sheet = workbook.getWorkBook().getSheetAt(i); //get num i sheet
+			Iterator<Row> rowIterator = sheet.iterator();
+
+			String tableName = workbook.getNames()[i];
+			int rows = workbook.getRows()[i];
+
+			System.out.println("------------------"); //sheet info check
+			System.out.println("Table: " + tableName);
+			System.out.println("Rows: "+ rows);
+		 	
+		 	writer.write(Components.LIB_OP_1);
+			if (Components.tableNames.containsKey(tableName))
+				writer.write(Components.tableNames.get(tableName));
+			else writer.write(tableName);
+			writer.write(Components.LIB_OP_2);
+			
+			for (int j = 0; j< rows; j++) //iterate rows
+			{
+				Row nextRow = rowIterator.next();
+				parity = !parity;
+				
+				title = nextRow.getCell(0).getStringCellValue();
+				link = nextRow.getCell(1).getStringCellValue();
+				if (nextRow.getCell(2).getCellTypeEnum().equals(CellType.NUMERIC))
+					author = String.format("%.0f",nextRow.getCell(2).getNumericCellValue());
+				else 
+					author = nextRow.getCell(2).getStringCellValue();
+				//TODO: time check for color
+				
+				String tableLine = 
+						Components.LIB_EL(title, link, author, "DarkRed", parity);
+				writer.write(tableLine);
+				writer.write("\r\n");
+			}
+			writer.write(Components.LIB_ED);
+		}
+		writer.flush();
+		writer.close();
+	}
 	
 	public void bugTableWrite() throws IOException
 	{
