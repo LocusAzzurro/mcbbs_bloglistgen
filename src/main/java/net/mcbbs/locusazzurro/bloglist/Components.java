@@ -10,7 +10,9 @@ public class Components {
 private static SimpleDateFormat tableTimeFormat= new SimpleDateFormat("yyyy-MM-dd");
 private static String tableTime = tableTimeFormat.format(new Date());
 
-public static final String BLOG_HEADER = "[table][tr=#a87b3f][td=300][b][color=White]最后更新时间："
+public static final String BLOG_HEADER = "[img=50,45]https://minecraft.net/static/theme/img/gif/menu-buy.gif[/img]"
+		+ "[size=5][color=DarkGreen][b][u]Minecraft.net 官方博文录[/u][/b][/color][/size]"
+		+ "[table][tr=#a87b3f][td=300][b][color=White]最后更新时间："
 		+ tableTime + "[/color][/b][/td][/tr][/table]\n";
 public static final String BLOG_OP_1 =
 "[table]\n[tr=#a87b3f][td=4,1,600][b][color=White][size=3]";
@@ -47,7 +49,12 @@ public static String BUGLIST_EL(String bugNumber, String eng, String chn)
 	return output;
 }
 
-public static final String LIB_HEADER = "[table][tr=Gray][td=300][b][color=White]最后更新时间："
+public static final String LIB_HEADER = "[align=center][img=32,32]http://www.mcbbs.net/static/image/smiley/ornaments/enchanting_table_top.png[/img]"
+		+ "[size=6][color=#8b0000] [b]翻译&Wiki 版立图书馆[/b] [/color][/size]"
+		+ "[img=32,32]http://www.mcbbs.net/static/image/smiley/ornaments/enchanting_table_top.png[/img][/align]\n"
+		+ "[align=center][size=4][b][color=#a0522d]Translation & Wiki Board Library[/color][/b][/size]\n"
+		+ "\n[b][u][size=2]请善用Ctrl+F搜索[/size][/u][/b]\n[/align]\n"
+		+ "[table][tr=Gray][td=300][b][color=White]最后更新时间："
 		+ tableTime + "[/color][/b][/td][/tr][/table]\n";
 public static final String LIB_OP_1= "[table][tr=Gray][td=3,1,600][b][color=White]"; //add table name here
 public static final String LIB_OP_2= "[/color][/b][/td][/tr]"
