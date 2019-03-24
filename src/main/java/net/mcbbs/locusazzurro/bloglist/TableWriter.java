@@ -65,15 +65,10 @@ public class TableWriter {
 				originalTitle = nextRow.getCell(2).getStringCellValue();
 				translationLink = nextRow.getCell(3).getStringCellValue();
 				translationTitle = nextRow.getCell(4).getStringCellValue();
-				if (nextRow.getCell(5).getCellTypeEnum().equals(CellType.NUMERIC))
-					author = String.format("%.0f",nextRow.getCell(5).getNumericCellValue());
-				else 
-					author = nextRow.getCell(5).getStringCellValue();
-				
+				author = authorParser(nextRow.getCell(5));
 				String tableLine = 
 						Components.BLOG_EL(postDate,originalLink,originalTitle,translationLink,translationTitle,author,parity);
-				writer.write(tableLine);
-				writer.write("\r\n");
+				writer.write(tableLine + "\r\n");
 			}
 			writer.write(Components.BLOG_ED);
 		}
@@ -112,10 +107,7 @@ public class TableWriter {
 				
 				title = nextRow.getCell(0).getStringCellValue();
 				link = nextRow.getCell(1).getStringCellValue();
-				if (nextRow.getCell(2).getCellTypeEnum().equals(CellType.NUMERIC))
-					author = String.format("%.0f",nextRow.getCell(2).getNumericCellValue());
-				else 
-					author = nextRow.getCell(2).getStringCellValue();
+				author = authorParser(nextRow.getCell(2));
 				//TODO: time check for color
 				
 				String tableLine = 
@@ -154,5 +146,15 @@ public class TableWriter {
 		writer.write(Components.BUG_ED);
 		writer.flush();
 		writer.close();
+	}
+	
+	private String authorParser(Cell cell)
+	{
+		String parsedAuthor;
+		if (cell.getCellTypeEnum().equals(CellType.NUMERIC))
+			parsedAuthor = String.format("%.0f",cell.getNumericCellValue());
+		else 
+			parsedAuthor = cell.getStringCellValue();
+		return parsedAuthor;
 	}
 }

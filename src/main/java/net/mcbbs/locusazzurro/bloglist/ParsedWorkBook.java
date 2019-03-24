@@ -15,11 +15,10 @@ public class ParsedWorkBook {
 	
 	private final XSSFWorkbook workBook;
 	private final int numSheets;
-	private final int type;
 	private final int[] rows;
 	private final String[] names;
 	
-	public ParsedWorkBook(Path filePath, int type) throws IOException
+	public ParsedWorkBook(Path filePath) throws IOException
 	{
 		try
 		{
@@ -30,7 +29,6 @@ public class ParsedWorkBook {
 			throw new IOException(e.toString(), e);
 		}
 		this.numSheets = workBook.getNumberOfSheets();
-		this.type = type;
 		this.rows = getLastValidRows();
 		this.names = getSheetNames();
 	}
@@ -49,10 +47,6 @@ public class ParsedWorkBook {
 	public String[] getNames()
 	{
 		return names;
-	}
-	public int getType()
-	{
-		return type;
 	}
 	private int[] getLastValidRows()
 	{

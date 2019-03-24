@@ -16,13 +16,19 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException, URISyntaxException {
 		
-		Path excelFilePath = FileUtilities.inputPath();
+		String input = args[0];
+		int type = Integer.parseInt(args[1]);
+		if (type < 1 || type > 2) throw new IllegalArgumentException("Invalid table type.\nUse 1 for Library, 2 for Blogs");
+		
+		Path excelFilePath = FileUtilities.inputPath(input);
 		Path outputFile = FileUtilities.outputPath();
 		Components.initializeTableNames();
-
-		ParsedWorkBook workbook = new ParsedWorkBook(excelFilePath, 0);
+		
+		ParsedWorkBook workbook = new ParsedWorkBook(excelFilePath);
 		TableWriter writer = new TableWriter(workbook, outputFile);
-		//writer.libraryTableWrite();
-		writer.blogTableWrite();
+		
+
+		if (type == 1) writer.libraryTableWrite();
+		if (type == 2) writer.blogTableWrite();
 	}
 }
