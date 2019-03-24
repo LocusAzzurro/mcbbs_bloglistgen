@@ -20,6 +20,8 @@ public class TableWriter {
 	
 	static final long UNIX_DIFF = 2208988800000L; //Time protocol RFC 868
 	static final long TIME_OFFSET = 86400000L * 2; //2 days in millisecs shift for xlsx date format
+	static final long SIX_MONTHS = 15552000000L;
+	static long CURRENT_TIME = new Date().getTime();
 	
 	public TableWriter(ParsedWorkBook workbook, Path outputFilePath) throws IOException
 	{
@@ -35,6 +37,8 @@ public class TableWriter {
 		String postDate,originalLink,originalTitle,translationLink,translationTitle;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		String author = "-";
+		
+	 	writer.write(Components.BLOG_HEADER);
 		
 		for (int i=0 ; i<workbook.getNumSheets() ; i++) //iterate sheets
 		{
@@ -80,8 +84,12 @@ public class TableWriter {
 	public void libraryTableWrite() throws IOException
 	{
 		boolean parity = true;
-		String title,link;
+		String title,link,timestampColor;
 		String author = "N/A";
+		long lastUpdate,timeDiff;
+		
+	 	writer.write(Components.LIB_HEADER);
+		
 		for (int i=0 ; i<workbook.getNumSheets() ; i++) //iterate sheets
 		{
 			Sheet sheet = workbook.getWorkBook().getSheetAt(i); //get num i sheet
@@ -94,7 +102,7 @@ public class TableWriter {
 			System.out.println("Table: " + tableName);
 			System.out.println("Rows: "+ rows);
 		 	
-		 	writer.write(Components.LIB_OP_1);
+			writer.write(Components.LIB_OP_1);
 			if (Components.tableNames.containsKey(tableName))
 				writer.write(Components.tableNames.get(tableName));
 			else writer.write(tableName);
@@ -108,10 +116,17 @@ public class TableWriter {
 				title = nextRow.getCell(0).getStringCellValue();
 				link = nextRow.getCell(1).getStringCellValue();
 				author = authorParser(nextRow.getCell(2));
-				//TODO: time check for color
+				lastUpdate = (long) nextRow.getCell(3).getNumericCellValue()*86400*1000 - UNIX_DIFF - TIME_OFFSET;
+				timeDiff = CURRENT_TIME - lastUpdate;
+				if (timeDiff < SIX_MONTHS) timestampColor = "#6cf955";
+				else if (timeDiff < SIX_MONTHS * 2) timestampColor = "#c5fd57";
+				else if (timeDiff < SIX_MONTHS * 4) timestampColor = "#f8ff57";
+				else if (timeDiff < SIX_MONTHS * 6) timestampColor = "#ffb919";
+				else if (timeDiff > SIX_MONTHS * 6 - 1) timestampColor = "#ffb919";
+				else timestampColor = "#ffffff";
 				
 				String tableLine = 
-						Components.LIB_EL(title, link, author, "DarkRed", parity);
+						Components.LIB_EL(title, link, author, timestampColor, parity);
 				writer.write(tableLine);
 				writer.write("\r\n");
 			}

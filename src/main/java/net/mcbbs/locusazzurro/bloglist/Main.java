@@ -21,7 +21,7 @@ public class Main {
 		if (type < 1 || type > 2) throw new IllegalArgumentException("Invalid table type.\nUse 1 for Library, 2 for Blogs");
 		
 		Path excelFilePath = FileUtilities.inputPath(input);
-		Path outputFile = FileUtilities.outputPath();
+		Path outputFile = FileUtilities.outputPath(type);
 		Components.initializeTableNames();
 		
 		ParsedWorkBook workbook = new ParsedWorkBook(excelFilePath);

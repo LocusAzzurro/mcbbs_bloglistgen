@@ -1,10 +1,17 @@
 package net.mcbbs.locusazzurro.bloglist;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Components {
 
+private static SimpleDateFormat tableTimeFormat= new SimpleDateFormat("yyyy-MM-dd");
+private static String tableTime = tableTimeFormat.format(new Date());
+
+public static final String BLOG_HEADER = "[table][tr=#a87b3f][td=300][b][color=White]最后更新时间："
+		+ tableTime + "[/color][/b][/td][/tr][/table]\n";
 public static final String BLOG_OP_1 =
 "[table]\n[tr=#a87b3f][td=4,1,600][b][color=White][size=3]";
 //Insert Catalog Type here when used
@@ -40,6 +47,8 @@ public static String BUGLIST_EL(String bugNumber, String eng, String chn)
 	return output;
 }
 
+public static final String LIB_HEADER = "[table][tr=Gray][td=300][b][color=White]最后更新时间："
+		+ tableTime + "[/color][/b][/td][/tr][/table]\n";
 public static final String LIB_OP_1= "[table][tr=Gray][td=3,1,600][b][color=White]"; //add table name here
 public static final String LIB_OP_2= "[/color][/b][/td][/tr]"
 		+ "[tr=LightGray][td=350]文献[/td][td=270]贡献者[/td][td=30][/td][/tr]"; //TODO: rework table palette
@@ -47,11 +56,11 @@ public static final String LIB_ED = "[/table]\r\n";
 public static final String LIB_EL(String title, String link, String author, String color, boolean parity)
 {
 	String parityColor;
-	if (parity) parityColor = "#ffffff";
-	else parityColor = "#ffffff"; //TODO: change this when colors are chosen
+	if (parity) parityColor = "#f2f2f2";
+	else parityColor = "#fefefe"; //TODO: change this when colors are chosen
 	String output = "[tr=" + parityColor + "][td][url=" + link + "]" + title 
 			+ "[/url][/td][td]"	+ author + "[/td][td][table][tr=" + color 
-			+ "][td][/td][/tr][/table][/td][/tr]\n";
+			+ "][td][/td][/tr][/table][/td][/tr]";
 	return output;
 }
 
