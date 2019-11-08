@@ -75,8 +75,9 @@ public class TableWriter {
 				writer.write(tableLine + "\r\n");
 			}
 			writer.write(Components.BLOG_ED);
+
 		}
-		
+		writer.write(Components.BLOG_RULES_REF);
 		writer.flush();
 		writer.close();
 		

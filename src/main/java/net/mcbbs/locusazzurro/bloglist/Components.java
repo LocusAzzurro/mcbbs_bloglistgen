@@ -11,7 +11,7 @@ private static SimpleDateFormat tableTimeFormat= new SimpleDateFormat("yyyy-MM-d
 private static String tableTime = tableTimeFormat.format(new Date());
 
 public static final String BLOG_HEADER = "[img=50,45]https://minecraft.net/static/theme/img/gif/menu-buy.gif[/img]"
-		+ "[size=5][color=DarkGreen][b][u]Minecraft.net 官方博文录[/u][/b][/color][/size]"
+		+ "[size=5][color=DarkGreen][b][u]Minecraft.net 官方博文录[/u][/b][/color][/size]\n"
 		+ "[table][tr=#a87b3f][td=300][b][color=White]最后更新时间："
 		+ tableTime + "[/color][/b][/td][/tr][/table]\n";
 public static final String BLOG_OP_1 =
@@ -24,6 +24,9 @@ public static final String BLOG_OP_2 =
 + "[td=25%][b][color=DarkRed]译文作者[/color][/b][/td][/tr]\r\n";
 public static final String BLOG_ED =
 "[/table][/spoiler]\r\n";
+public static final String BLOG_RULES_REF = "\n[list]\n" + 
+		"[*][size=3][b][color=Green]官方博文相关建议与守则请参阅[url=https://www.mcbbs.net/thread-566428-1-1.html]版规[/url][/color][/b][/size]\n" + 
+		"[/list]";
 public static final String BUG_OP = "[b][size=3]漏洞修复列表[/size][/b]\r\n[list]\r\n";
 public static final String BUG_ED = "[/list]\r\n";
 
