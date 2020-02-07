@@ -79,7 +79,7 @@ public static Map<String, String> tableNames = new HashMap<String, String>();
 public static void initializeTableNames()
 {
 	tableNames.put("BLOCKS","本周方块");
-	tableNames.put("ITEMS","背包清点");
+	tableNames.put("ITEMS","背包盘点");
 	tableNames.put("MOBS","遇见生物");
 	tableNames.put("INSIDER","内部资讯");
 	tableNames.put("MERCH","周边产品");
@@ -87,6 +87,9 @@ public static void initializeTableNames()
 	tableNames.put("PLUGINS","插件资料");
 	tableNames.put("MODS","模组资料");
 	tableNames.put("DOCS","学术文章");
+	tableNames.put("BUILD","与之搭建");
+	tableNames.put("THINGS","十或不知");
+	tableNames.put("MARKET","每月推荐");
 }
 
 public static void main(String args[])
