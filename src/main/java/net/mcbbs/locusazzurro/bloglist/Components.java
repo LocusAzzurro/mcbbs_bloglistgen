@@ -81,15 +81,22 @@ public static void initializeTableNames()
 	tableNames.put("BLOCKS","本周方块");
 	tableNames.put("ITEMS","背包盘点");
 	tableNames.put("MOBS","遇见生物");
+	tableNames.put("BIOMES","群系漫游");
+	tableNames.put("BUILD","以之搭建");
 	tableNames.put("INSIDER","内部资讯");
+	tableNames.put("DIVES","块海漫游");
+	tableNames.put("GUIDES","游玩指南");
+	tableNames.put("THINGS","十或不知");
+	tableNames.put("DUNGEONS","地下城记");
 	tableNames.put("MERCH","周边产品");
+	tableNames.put("MARKET","市场推荐");
+	tableNames.put("REALMS","领域新品");
+	tableNames.put("MCBUILDS","社区建筑");
+	tableNames.put("SKINS","社区皮肤");
 	tableNames.put("CULTURE","社区文化");
 	tableNames.put("PLUGINS","插件资料");
 	tableNames.put("MODS","模组资料");
 	tableNames.put("DOCS","学术文章");
-	tableNames.put("BUILD","与之搭建");
-	tableNames.put("THINGS","十或不知");
-	tableNames.put("MARKET","每月推荐");
 }
 
 public static void main(String args[])
