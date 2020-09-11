@@ -37,6 +37,7 @@ public class TableWriter {
 		String postDate,originalLink,originalTitle,translationLink,translationTitle;
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		String author = "-";
+		long lastPostDate = 0,postDateRaw = 0;
 		
 	 	writer.write(Components.BLOG_HEADER);
 		
@@ -65,6 +66,7 @@ public class TableWriter {
 				parity = !parity;
 				
 				postDate = df.format(new Date((long)nextRow.getCell(0).getNumericCellValue()*86400*1000 - UNIX_DIFF - TIME_OFFSET));
+				postDateRaw = (long)nextRow.getCell(0).getNumericCellValue()*86400*1000 - UNIX_DIFF - TIME_OFFSET;
 				originalLink = nextRow.getCell(1).getStringCellValue();
 				originalTitle = nextRow.getCell(2).getStringCellValue();
 				translationLink = nextRow.getCell(3).getStringCellValue();
@@ -73,10 +75,14 @@ public class TableWriter {
 				String tableLine = 
 						Components.BLOG_EL(postDate,originalLink,originalTitle,translationLink,translationTitle,author,parity);
 				writer.write(tableLine + "\r\n");
+				if (postDateRaw > lastPostDate) lastPostDate = postDateRaw;
 			}
 			writer.write(Components.BLOG_ED);
 
 		}
+		writer.write(Components.BLOG_LASTPOST_1);
+		writer.write(df.format(new Date(lastPostDate)));
+		writer.write(Components.BLOG_LASTPOST_2);
 		writer.write(Components.BLOG_RULES_REF);
 		writer.flush();
 		writer.close();

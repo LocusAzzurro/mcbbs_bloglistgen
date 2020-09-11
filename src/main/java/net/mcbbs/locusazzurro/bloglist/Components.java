@@ -10,7 +10,7 @@ public class Components {
 private static SimpleDateFormat tableTimeFormat= new SimpleDateFormat("yyyy-MM-dd");
 private static String tableTime = tableTimeFormat.format(new Date());
 
-public static final String BLOG_HEADER = "[img=50,45]https://minecraft.net/static/theme/img/gif/menu-buy.gif[/img]"
+public static final String BLOG_HEADER = "{:grass_side:} "
 		+ "[size=5][color=DarkGreen][b][u]Minecraft.net 官方博文录[/u][/b][/color][/size]\n"
 		+ "[table][tr=#a87b3f][td=300][b][color=White]最后更新时间："
 		+ tableTime + "[/color][/b][/td][/tr][/table]\n";
@@ -24,6 +24,8 @@ public static final String BLOG_OP_2 =
 + "[td=25%][b][color=DarkRed]译文作者[/color][/b][/td][/tr]\r\n";
 public static final String BLOG_ED =
 "[/table][/spoiler]\r\n";
+public static final String BLOG_LASTPOST_1 = "[table][tr=#a87b3f][td=300][b][color=White]原文最后收录：";
+public static final String BLOG_LASTPOST_2 = "[/color][/b][/td][/tr][/table]\n";
 public static final String BLOG_RULES_REF = "\n[list]\n" + 
 		"[*][size=3][b][color=Green]官方博文相关建议与守则请参阅[url=https://www.mcbbs.net/thread-566428-1-1.html]版规[/url][/color][/b][/size]\n" + 
 		"[/list]";
