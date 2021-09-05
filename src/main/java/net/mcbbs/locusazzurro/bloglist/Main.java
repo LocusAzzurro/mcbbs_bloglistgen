@@ -1,7 +1,6 @@
 /**
- * MCBBS Translation & Wiki Board 
- * Blog List Auto Writer
- * by LocusAzzurro
+ * Minecraft.net Blog Table Serializer
+ * @author LocusAzzurro
  */
 
 package net.mcbbs.locusazzurro.bloglist;
@@ -16,19 +15,12 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException, URISyntaxException {
 		
-		String input = args[0];
-		int type = Integer.parseInt(args[1]);
-		if (type < 1 || type > 2) throw new IllegalArgumentException("Invalid table type.\nUse 1 for Library, 2 for Blogs");
-		
-		Path excelFilePath = FileUtilities.inputPath(input);
-		Path outputFile = FileUtilities.outputPath(type);
-		Components.initializeTableNames();
+		Path excelFilePath = (args.length > 0) ? FileUtilities.inputPath(args[0]) : FileUtilities.inputPath();
+		Path outputFile = FileUtilities.outputPath();
 		
 		ParsedWorkBook workbook = new ParsedWorkBook(excelFilePath);
 		TableWriter writer = new TableWriter(workbook, outputFile);
 		
-
-		if (type == 1) writer.libraryTableWrite();
-		if (type == 2) writer.blogTableWrite();
+		writer.blogTableWrite();
 	}
 }

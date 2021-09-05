@@ -36,6 +36,7 @@ public class FileUtilities {
 		return outputFile;
 	}
 	
+	@Deprecated // Use the general output
 	public static Path outputPath(int type)
 	{
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd-HHmmss");
@@ -47,6 +48,7 @@ public class FileUtilities {
 		return outputFile;
 	}
 	
+	@Deprecated
 	public static int tableType()
 	{
 		try (Scanner input = new Scanner(System.in))
