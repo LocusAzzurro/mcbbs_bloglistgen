@@ -28,7 +28,17 @@ public static final String BLOG_LASTPOST_1 = "[table][tr=#a87b3f][td=300][b][col
 public static final String BLOG_LASTPOST_2 = "[/color][/b][/td][/tr][/table]\n";
 public static final String BLOG_RULES_REF = "\n[list]\n" + 
 		"[*][size=3][b][color=Green]官方博文相关建议与守则请参阅[url=https://www.mcbbs.net/thread-566428-1-1.html]版规[/url][/color][/b][/size]\n" + 
+		"[*][size=3][b][color=Green]了解重收录相关流程请前往[url=https://www.mcbbs.net/thread-1259271-1-1.html]申请帖[/url][/color][/b][/size]\n" + 
 		"[/list]";
+public static final String NAVBAR = "\n[align=center][table=80%]\n" + 
+		"[tr=#fff2d3][td][color=#3e2c00][b][size=3][align=center]识海漫谈 导航[/align][/size][/b][/color][/td][/tr]\n" + 
+		"[tr=#ffe7ad][td][/td][/tr]\n" + 
+		"[tr=#fff8e6][td][align=center][url=https://www.mcbbs.net/thread-566428-1-1.html][color=Sienna]版规[/color][/url]" +
+		" • [url=https://www.mcbbs.net/thread-823054-1-1.html][color=Sienna]官方博文录[/color][/url]" +
+		" • [url=https://www.mcbbs.net/thread-1259271-1-1.html][color=Sienna]重收录申请[/color][/url]" +
+		" • [url=https://www.mcbbs.net/thread-1175676-1-1.html][color=Sienna]译名讨论指导[/color][/url]" +
+		" • [url=https://www.mcbbs.net/thread-1046420-1-1.html][color=Sienna]中文MCWiki动员[/color][/url][/align][/td][/tr]\n" + 
+		"[/table][/align]";
 @Deprecated
 public static final String BUG_OP = "[b][size=3]漏洞修复列表[/size][/b]\r\n[list]\r\n";
 @Deprecated

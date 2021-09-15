@@ -84,6 +84,7 @@ public class TableWriter {
 		writer.write(df.format(new Date(lastPostDate)));
 		writer.write(Components.BLOG_LASTPOST_2);
 		writer.write(Components.BLOG_RULES_REF);
+		writer.write(Components.NAVBAR);
 		writer.flush();
 		writer.close();
 		
