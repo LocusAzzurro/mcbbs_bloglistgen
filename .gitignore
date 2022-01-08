@@ -1,7 +1,9 @@
 target/
+out/
 *.xlsx
 *.txt
 .classpath
 .project
 .settings/
+.idea/
 src/test
