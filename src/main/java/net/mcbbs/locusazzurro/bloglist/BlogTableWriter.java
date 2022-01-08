@@ -14,16 +14,16 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 
-public class TableWriter {
+public class BlogTableWriter {
 	private final ParsedWorkBook workbook;
 	private final BufferedWriter writer;
 	
 	static final long UNIX_DIFF = 2208988800000L; //Time protocol RFC 868
-	static final long TIME_OFFSET = 86400000L * 2; //2 days in millisecs shift for xlsx date format
+	static final long TIME_OFFSET = 86400000L * 2; //2 days in ms shift for xlsx date format
 	
-	public TableWriter(ParsedWorkBook workbook, Path outputFilePath) throws IOException
+	public BlogTableWriter(Path inputFilePath, Path outputFilePath) throws IOException
 	{
-		this.workbook = workbook;
+		this.workbook = new ParsedWorkBook(inputFilePath);
 		try	{Files.createFile(outputFilePath);}
 		catch (IOException e) {	e.printStackTrace();}
 		this.writer = Files.newBufferedWriter(outputFilePath, StandardOpenOption.APPEND);
@@ -36,7 +36,8 @@ public class TableWriter {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 		String author = "-";
 		long lastPostDate = 0,postDateRaw = 0;
-		
+
+		System.out.println("Converting Sheet...");
 	 	writer.write(Components.BLOG_HEADER);
 		
 		for (int i=0 ; i<workbook.getNumSheets() ; i++) //iterate sheets
@@ -47,9 +48,7 @@ public class TableWriter {
 			String tableName = workbook.getNames()[i];
 			int rows = workbook.getRows()[i];
 
-			System.out.println("------------------"); //sheet info check
-			System.out.println("Table: " + tableName);
-			System.out.println("Rows: "+ rows);
+			System.out.println("Now Processing Table " + tableName + " (" + rows + " Entries)"); //sheet info check
 		 	
 		 	writer.write(Components.BLOG_OP_1);
 			writer.write(Components.tableNames.getOrDefault(tableName, tableName));
@@ -83,7 +82,7 @@ public class TableWriter {
 		writer.write(Components.NAVBAR);
 		writer.flush();
 		writer.close();
-		
+		System.out.println("Conversion Complete.");
 	}
 	
 	private String authorParser(Cell cell)
