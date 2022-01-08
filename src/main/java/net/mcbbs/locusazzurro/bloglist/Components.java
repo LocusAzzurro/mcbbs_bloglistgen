@@ -110,8 +110,9 @@ static
 	tableNames.put("MARKET","市场推荐");
 	tableNames.put("REALMS","领域新品");
 	tableNames.put("MCBUILDS","社区建筑");
-	tableNames.put("EVENTS","社区活动");
+	tableNames.put("EVENTS","活动块讯");
 	tableNames.put("SKINS","社区皮肤");
+	tableNames.put("FANART","粉丝创作");
 	tableNames.put("CULTURE","社区文化");
 	tableNames.put("PLUGINS","插件资料");
 	tableNames.put("MODS","模组资料");

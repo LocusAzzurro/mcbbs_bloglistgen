@@ -54,9 +54,7 @@ public class TableWriter {
 			System.out.println("Rows: "+ rows);
 		 	
 		 	writer.write(Components.BLOG_OP_1);
-			if (Components.tableNames.containsKey(tableName))
-				writer.write(Components.tableNames.get(tableName));
-			else writer.write(tableName);
+			writer.write(Components.tableNames.getOrDefault(tableName, tableName));
 			writer.write(Components.BLOG_OP_2);
 			
 
