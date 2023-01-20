@@ -46,11 +46,10 @@ public static String BLOG_EL(String date,String originalURL,String originalTitle
 	String color;
 	if (parity) color = "#eee0be";
 	else color = "#eeecd7";
-	String output = "[tr=" + color + "][td=15%]" + date + "[/td][td=30%]"
+	return "[tr=" + color + "][td=15%]" + date + "[/td][td=30%]"
 			+ "[url=" + originalURL + "]" + originalTitle + "[/url][/td][td=30%]"
 			+ "[url=" + translationURL + "]" + translationTitle + "[/url][/td]"
 			+ "[td=25%]" + author + "[/td][/tr]";
-	return output;
 }
 
 public static Map<String, String> tableNames = new HashMap<>();
@@ -67,6 +66,7 @@ static
 	tableNames.put("GUIDES","游玩指南");
 	tableNames.put("THINGS","十或不知");
 	tableNames.put("DUNGEONS","地下城记");
+	tableNames.put("LEGENDS","传奇故事");
 	tableNames.put("MERCH","周边产品");
 	tableNames.put("MARKET","市场推荐");
 	tableNames.put("REALMS","领域新品");
